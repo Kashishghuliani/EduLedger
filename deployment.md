@@ -78,8 +78,6 @@ Run:
 git clone https://github.com/Kashishghuliani/EduLedger
 ```
 
-Replace `YOUR_GITHUB_REPOSITORY_URL` with the public GitHub repository URL.
-
 Navigate into the project directory:
 
 ```bash
