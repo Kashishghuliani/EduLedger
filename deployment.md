@@ -75,7 +75,7 @@ Open a terminal or command prompt.
 Run:
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/Kashishghuliani/EduLedger
 ```
 
 Replace `YOUR_GITHUB_REPOSITORY_URL` with the public GitHub repository URL.
@@ -594,6 +594,6 @@ The Django Admin interface can be used for database-level inspection by an autho
 - Use only sample or dummy information during evaluation.
 - The application is configured for local development using the instructions in this document.
 
-**Repository:** YOUR_GITHUB_REPOSITORY_URL
+**Repository:** https://github.com/Kashishghuliani/EduLedger
 
 **End of Deployment Guide**
