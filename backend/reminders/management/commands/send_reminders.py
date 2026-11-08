@@ -12,12 +12,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         today = timezone.localdate()
 
-        reminder_rules = {
-            3: Reminder.MessageType.BEFORE,
-            0: Reminder.MessageType.DUE,
-            -3: Reminder.MessageType.AFTER,
-        }
-
         created_count = 0
         skipped_count = 0
 
@@ -33,12 +27,17 @@ class Command(BaseCommand):
         for installment in installments:
             days_until_due = (installment.due_date - today).days
 
-            message_type = reminder_rules.get(days_until_due)
-
-            if not message_type:
+            # Determine which reminder should be generated.
+            if days_until_due == 3:
+                message_type = Reminder.MessageType.BEFORE
+            elif days_until_due == 0:
+                message_type = Reminder.MessageType.DUE
+            elif days_until_due <= -3:
+                message_type = Reminder.MessageType.AFTER
+            else:
                 continue
 
-            # Prevent duplicate reminders for the same installment and type.
+            # Avoid duplicate reminders of the same type.
             already_exists = Reminder.objects.filter(
                 installment=installment,
                 message_type=message_type,

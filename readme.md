@@ -2,12 +2,12 @@
 
 **A centralized platform for student fee management, parent communication, payment tracking and student monitoring.**
 
-EduLedger is a web-based management system designed for coaching institutes to manage students, parents, centres, batches, fee structures, installment payments, reminders, refunds and student risk assessments through a single platform.
+EduLedger is a web-based management system designed for coaching institutes to manage students, parents, centres, batches, fee plans, installment payments, reminders, refunds and student risk assessments through a centralized platform.
 
 The application provides two role-based portals:
 
-- **Accounts Executive Portal:** Manages the institute's operational and financial activities, including parent accounts, student records, centres, batches, fee plans, payments, refunds and student monitoring.
-- **Parent Portal:** Allows parents to access their linked students' academic and financial information, monitor fee dues, view reminders and make simulated payments.
+- **Accounts Executive Portal:** Manages parent accounts, student records, centres, batches, fee plans, payments, reminders, refunds and student risk monitoring.
+- **Parent Portal:** Allows parents to view their linked students, check fee dues, track installments, view payment receipts and reminders, and make simulated payments.
 
 ---
 
@@ -17,7 +17,7 @@ Coaching institutes often manage student registrations, fee collections, install
 
 As the number of students and centres increases, managing these operations becomes difficult.
 
-Some common challenges include:
+Common challenges include:
 
 - Maintaining separate student and parent records.
 - Organizing students across multiple centres and batches.
@@ -32,8 +32,6 @@ EduLedger addresses these challenges by providing a centralized system where acc
 
 # 2. User Roles
 
-EduLedger supports two primary user roles.
-
 ## 2.1 Accounts Executive
 
 The Accounts Executive has access to the institute management portal.
@@ -47,7 +45,7 @@ Responsibilities include:
 - Creating student fee plans.
 - Tracking installment payments.
 - Monitoring outstanding balances.
-- Generating payment reminders.
+- Generating fee reminders.
 - Calculating student refunds.
 - Assessing student risk and managing counsellor tasks.
 - Monitoring institute-level financial statistics through the dashboard.
@@ -56,21 +54,19 @@ Responsibilities include:
 
 The Parent has access to a separate parent portal.
 
-Responsibilities and available features include:
+Available features include:
 
 - Logging in using assigned credentials.
 - Viewing students linked to their account.
-- Viewing each student's fee plan.
-- Checking total fees, discounts and amount paid.
-- Monitoring outstanding balances.
-- Viewing installment due dates and statuses.
-- Viewing payment reminders.
+- Viewing student information.
+- Viewing total fees, amount paid and outstanding balance.
+- Monitoring installment due dates and statuses.
+- Viewing payment history and available receipts.
+- Viewing generated fee reminders.
 - Making simulated payments.
 - Checking updated fee information after payments.
 
-Parents can only access students associated with their own account.
-
----
+Parents can only access student information associated with their own account.
 
 # 3. Technology Stack
 
@@ -90,17 +86,11 @@ Parents can only access students associated with their own account.
 | API Testing | Postman |
 | Version Control | Git and GitHub |
 
----
-
 # 4. Application Modules and Features
 
 ## 4.1 Dashboard
 
 The Dashboard provides an overall view of the institute's fee and student management activities.
-
-It helps the Accounts Executive understand the current operational and financial status without opening each individual section.
-
-### Dashboard Information
 
 **Student Statistics**
 - Total number of students.
@@ -117,49 +107,33 @@ It helps the Accounts Executive understand the current operational and financial
 - Helps identify payments requiring follow-up.
 
 **Centre-wise and Batch-wise Information**
-- Provides a view of fee-related information across centres and batches.
-- Helps compare collection and outstanding amounts across different institute locations.
-
-**Counsellor Tasks**
-- Displays open counsellor follow-up tasks.
-- Helps the Accounts Executive track students who have been flagged for additional attention.
+- Provides fee-related information across centres and batches.
+- Helps compare collection and outstanding amounts across institute locations.
 
 The dashboard retrieves aggregated information from the backend through the dashboard API.
 
----
-
 ## 4.2 Account Management
 
-Account Management is an important section of the Accounts Executive portal.
+Account Management provides a centralized interface for managing institute records.
 
-It provides a centralized interface for managing the institute's basic operational records.
-
-The section contains four major modules:
+It contains four major modules:
 
 1. Parent Management
 2. Student Management
 3. Centre Management
 4. Batch Management
 
-These modules are connected to one another, ensuring that students are associated with the correct parents, centres and batches.
-
 ### A. Parent Management
 
-Parent Management allows the Accounts Executive to create and maintain parent accounts.
+Features:
 
-Each parent account provides login access to the Parent Portal.
-
-**Features**
-
-- Create new parent accounts.
-- Enter parent name and username.
-- Add contact information, including phone number.
-- Configure the parent's preferred communication language.
-- Store account credentials securely through Django authentication.
+- Create parent accounts.
+- Enter parent names and usernames.
+- Add contact information, including phone numbers.
+- Configure preferred communication language.
+- Store credentials securely through Django authentication.
 - View existing parent accounts.
 - Associate parents with their respective students.
-
-**Parent Information**
 
 | Field | Description |
 |---|---|
@@ -177,32 +151,25 @@ Each parent account provides login access to the Parent Portal.
 5. Selects the preferred communication language.
 6. Submits the form.
 7. The backend creates the parent account.
-8. The parent can subsequently log in to the Parent Portal.
 
-The system uses Django's user authentication model, and passwords are stored as hashes rather than plain text.
+Passwords are stored as hashes through Django authentication rather than as plain text.
 
-A parent can be linked to multiple students. This allows a parent with multiple children enrolled in the institute to access their respective fee information through one account.
+A parent can be linked to multiple students.
 
 ### B. Student Management
 
-Student Management allows the Accounts Executive to register and maintain student records.
-
-Every student is assigned a unique student ID and associated with a parent, centre and batch.
-
-**Features**
+Features:
 
 - Register new students.
-- Assign a unique student ID.
-- Enter student name and details.
-- Associate a student with an existing parent account.
-- Assign a student to a batch.
-- Organize students according to their centre through their batch.
+- Assign unique student IDs.
+- Enter student details.
+- Associate students with parent accounts.
+- Assign students to existing batches.
+- Identify the student's centre through the assigned batch.
 - Maintain student attendance percentage.
 - View student information.
-- Access an individual student's fee ledger.
-- Create a fee plan for a student when one does not exist.
-
-**Student Information**
+- Access individual student fee ledgers.
+- Create fee plans for students.
 
 | Field | Description |
 |---|---|
@@ -219,128 +186,56 @@ Every student is assigned a unique student ID and associated with a parent, cent
 3. Enters the student's details.
 4. Selects an existing parent account.
 5. Selects the appropriate batch.
-6. Submits the student registration form.
-7. The backend creates the student record with the selected parent and batch relationships.
-8. The student becomes available in the student management section.
-
-**Fee Ledger Access**
-
-The Students section also provides access to individual student fee ledgers.
-
-The Accounts Executive can:
-- View the student's total payable fee.
-- View the total amount paid.
-- Check the outstanding amount.
-- View installment details.
-- Create a fee plan if the student does not have one.
-
-The student record and fee ledger are connected, so the Accounts Executive can manage student information and fee information from the same section.
+6. Submits the registration form.
+7. The backend creates the student record.
 
 ### C. Centre Management
 
-Centre Management allows the Accounts Executive to maintain the different physical locations of the coaching institute.
-
-This is particularly useful for institutes operating across multiple locations.
-
-**Features**
+Features:
 
 - Create new centres.
-- Enter centre names.
-- Store centre locations.
+- Enter centre names and locations.
 - View existing centres.
 - Maintain a centralized list of institute locations.
 - Associate batches with their respective centres.
-
-**Centre Information**
 
 | Field | Description |
 |---|---|
 | Centre Name | Name of the coaching centre |
 | Location | Physical location of the centre |
 
-**Centre Creation Workflow**
-
-1. The Accounts Executive opens Account Management.
-2. Selects the Centres section.
-3. Enters the centre name.
-4. Enters its location.
-5. Submits the form.
-6. The backend saves the centre record.
-7. The newly created centre becomes available when creating batches.
-
-For example, an institute can create centres such as:
-
-- Jaipur Main Centre – Vaishali Nagar.
-- Jaipur North Centre – Vidyadhar Nagar.
-- Jaipur South Centre – Mansarovar.
-- Jaipur East Centre – Malviya Nagar.
-
-These are illustrative centre names for demonstration.
-
 ### D. Batch Management
 
-Batch Management allows the Accounts Executive to organize students into academic or coaching batches.
-
-Each batch is associated with a centre.
-
-**Features**
+Features:
 
 - Create new batches.
 - Enter batch names.
 - Select an existing centre.
 - View existing batches.
 - Organize students according to batch.
-- Maintain the relationship between batches and centres.
-
-**Batch Information**
 
 | Field | Description |
 |---|---|
 | Batch Name | Name of the batch |
 | Centre | Centre to which the batch belongs |
 
-**Batch Creation Workflow**
-
-1. The Accounts Executive opens Account Management.
-2. Selects the Batches section.
-3. Enters the batch name.
-4. Selects an existing centre.
-5. Submits the form.
-6. The backend creates the batch and associates it with the selected centre.
-7. The batch becomes available when registering students.
-
-For example:
-
-| Batch | Centre |
-|---|---|
-| JEE 2027 Morning | Jaipur Main |
-| NEET 2027 Morning | Jaipur Main |
-| JEE 2027 Evening | Jaipur North |
-| NEET 2027 Evening | Jaipur North |
-| JEE 2028 Morning | Jaipur South |
-| NEET 2028 Morning | Jaipur South |
-
 ### How Account Management Modules Work Together
 
-The four modules are connected through database relationships.
-
 ```text
-                 CENTRE
-                    |
-                    |
-                  BATCH
-                    |
-                    |
-                  STUDENT
-                    |
-                    |
-                  PARENT
-                    |
-                    |
-              PARENT PORTAL
+CENTRE
+   |
+   v
+ BATCH
+   |
+   v
+ STUDENT
+   |
+   v
+ PARENT
+   |
+   v
+PARENT PORTAL
 ```
-
-The actual relationships are:
 
 - One centre can have multiple batches.
 - Each batch belongs to one centre.
@@ -349,34 +244,17 @@ The actual relationships are:
 - One parent can be linked to multiple students.
 - Each student is associated with one parent account.
 
-**Example Workflow**
-
-Suppose the institute opens a new centre in Jaipur.
-
-1. The Accounts Executive creates the centre.
-2. Creates JEE and NEET batches under that centre.
-3. Registers students and assigns them to the appropriate batches.
-4. Associates each student with an existing parent account.
-5. Creates a fee plan for each student.
-6. Parents can log in and view their linked students' fee information.
-
-This structure ensures that the institute's records remain organized and connected.
-
----
-
 ## 4.3 Fee Management
 
 Fee Management allows the Accounts Executive to create and maintain student fee structures.
 
-Each student has an individual fee plan.
-
-**Features**
+Features:
 
 - Create fee plans for students.
 - Enter total course fees.
 - Apply discounts.
 - Calculate the final payable amount.
-- Divide the payable amount into installments.
+- Divide payable fees into installments.
 - Assign installment due dates.
 - Track payments against individual installments.
 - View outstanding balances.
@@ -403,15 +281,13 @@ Outstanding Amount = Payable Amount - Total Paid
 
 The payable amount can be divided into multiple installments.
 
-For example:
+Example:
 
 | Installment | Amount | Due Date |
 |---|---:|---|
 | First | ₹33,000 | 1 October |
 | Second | ₹33,000 | 15 November |
 | Third | ₹33,000 | 15 December |
-
-The Accounts Executive can view installment-wise payment information.
 
 **Installment Statuses**
 
@@ -421,17 +297,15 @@ The Accounts Executive can view installment-wise payment information.
 | Partial | Some payment has been received |
 | Paid | Entire installment amount has been paid |
 
-The backend recalculates installment statuses as payments are recorded.
-
----
+The backend updates installment statuses as payments are recorded.
 
 ## 4.4 Payment Management
 
 The Payment Management module handles student installment payment records.
 
-The current project uses a mock payment workflow for demonstration.
+The current project uses a simulated payment workflow for demonstration.
 
-**Features**
+Features:
 
 - Simulate successful payments.
 - Simulate failed payments.
@@ -441,50 +315,46 @@ The current project uses a mock payment workflow for demonstration.
 - Use idempotency keys to help prevent duplicate payment processing.
 - Update installment payment amounts.
 - Recalculate installment statuses.
-- Generate payment receipts after successful payments.
-- Update the student's outstanding balance.
+- Generate payment receipt records after successful payments.
+- Update outstanding balances.
 
-### Payment Workflow
+**Payment Workflow**
 
 ```text
 Parent opens fee ledger
-          |
-          v
+        |
+        v
 Selects an installment
-          |
-          v
+        |
+        v
 Enters payment amount
-          |
-          v
+        |
+        v
 Submits mock payment request
-          |
-          v
-Backend validates the request
-          |
-          v
+        |
+        v
+Backend validates request
+        |
+        v
 Payment processed
-          |
-          v
+        |
+        v
 Payment record created
-          |
-          v
+        |
+        v
 Installment balance updated
-          |
-          v
+        |
+        v
 Installment status recalculated
-          |
-          v
-Receipt generated on success
-          |
-          v
+        |
+        v
+Receipt record generated on success
+        |
+        v
 Parent portal updated
 ```
 
-### Partial Payment Example
-
-Suppose an installment amount is ₹33,000.
-
-The parent makes a payment of ₹10,000.
+**Partial Payment Example**
 
 ```text
 Installment Amount = ₹33,000
@@ -495,17 +365,13 @@ Status             = PARTIAL
 
 If the parent subsequently pays the remaining ₹23,000, the installment status becomes `PAID`.
 
-**Important:** This project does not currently integrate with Razorpay, Stripe or another real payment gateway. Payments are simulated for evaluation.
-
----
+**Important:** No actual money is transferred. A real payment gateway such as Razorpay or Stripe is not integrated.
 
 ## 4.5 Automated Fee Reminders
 
-The Reminder Management module helps the institute generate reminders for upcoming and overdue installment payments.
+The Reminder Management module generates reminders for upcoming and overdue installment payments.
 
-The system checks installment due dates and generates reminder records according to predefined rules.
-
-### Reminder Schedule
+**Reminder Schedule**
 
 | Reminder Type | Trigger |
 |---|---|
@@ -513,18 +379,18 @@ The system checks installment due dates and generates reminder records according
 | Due Today | On the due date |
 | After Due | 3 days after due date |
 
-### Features
+**Features**
 
 - Generate reminder records based on installment due dates.
 - Support English and Hindi message templates.
 - Use the parent's preferred language.
-- Store reminders in the database.
+- Store reminders in PostgreSQL.
 - Track reminder status.
-- Prevent duplicate reminder creation for the same installment, language, type and scheduled date.
+- Prevent duplicate reminder creation according to configured duplicate-checking logic.
 - Display reminders in the Parent Portal.
-- Stop pending reminders when an installment is fully paid.
+- Skip pending reminders when an installment is fully paid.
 
-### Reminder Workflow
+**Reminder Workflow**
 
 ```text
 Installment created
@@ -548,7 +414,7 @@ Reminder saved in database
 Reminder displayed in Parent Portal
 ```
 
-### Reminder Statuses
+**Reminder Statuses**
 
 | Status | Meaning |
 |---|---|
@@ -556,21 +422,19 @@ Reminder displayed in Parent Portal
 | Sent | Reminder is marked as sent |
 | Skipped | Reminder is no longer required |
 
-### Payment and Reminder Relationship
+**Payment and Reminder Relationship**
 
-- If an installment is partially paid, reminders remain active because a balance is outstanding.
+- If an installment is partially paid, reminders remain active while a balance is outstanding.
 - If an installment is fully paid, pending reminders for that installment are marked as skipped.
 - Already sent reminders are not treated as pending reminders.
 
-**Important:** The current implementation generates and stores reminder records. Actual SMS, WhatsApp and email delivery are not integrated.
-
----
+**Important:** Reminder records are generated and displayed in the Parent Portal. Actual SMS, WhatsApp and email delivery services are not integrated.
 
 ## 4.6 Refund Management
 
 The Refund Management module allows the Accounts Executive to calculate a student's refund when the student withdraws from the course.
 
-### Information Required
+**Information Required**
 
 - Student.
 - Course start date.
@@ -578,7 +442,7 @@ The Refund Management module allows the Accounts Executive to calculate a studen
 - Withdrawal date.
 - Amount paid.
 
-### Refund Calculation
+**Refund Calculation**
 
 The current demonstration uses a pro-rata calendar-day calculation.
 
@@ -597,15 +461,11 @@ Remaining Course Days = Course End Date - Withdrawal Date
 
 The remaining days are restricted to the course duration.
 
-### Example
-
-Suppose:
+**Example**
 
 - Amount paid: ₹30,000.
 - Course duration: 30 calendar days.
 - Remaining course days: 20.
-
-Then:
 
 ```text
 Refund = 30,000 × 20 / 30
@@ -613,9 +473,9 @@ Refund = 30,000 × 20 / 30
 Refund = ₹20,000
 ```
 
-### Additional Features
+**Additional Features**
 
-- Calculate refund amount.
+- Calculate refund amounts.
 - Retrieve successful payment amounts for the student.
 - Calculate a processing deadline.
 - Maintain refund records.
@@ -625,38 +485,23 @@ The current implementation calculates the processing deadline as 10 days after t
 
 **Note:** The refund formula and processing deadline are demonstration assumptions, not a confirmed institute-specific refund policy.
 
----
-
 ## 4.7 Student Risk Monitoring
 
 The Risk Monitoring module helps the Accounts Executive identify students who may require additional attention.
 
-The current implementation uses a rule-based scoring system based on payment delays, attendance and academic performance.
+The current implementation uses rule-based scoring rather than a trained machine-learning model.
 
-### Risk Assessment Criteria
+Potential assessment factors include:
 
-| Indicator | Score |
-|---|---:|
-| Installment overdue by more than 30 days | +35 |
-| Attendance below 60% | +30 |
-| Declining performance in the last three test scores | +25 |
-| Two or more overdue installments | +10 |
-
-### Risk Classification
-
-| Risk Score | Risk Level |
-|---|---|
-| Below 30 | Low |
-| 30–59 | Medium |
-| 60 or above | High |
-
-### Features
+- Attendance information.
+- Overdue installments.
+- Academic performance information, where available to the assessment logic.
 
 **Student Assessment**
 - Assess individual students.
-- Calculate a risk score.
-- Determine the risk level.
-- Store the reasons contributing to the score.
+- Calculate risk scores using configured rules.
+- Determine risk levels.
+- Store assessment reasons.
 
 **Assessment Results**
 - View previous risk assessments.
@@ -664,7 +509,7 @@ The current implementation uses a rule-based scoring system based on payment del
 - Understand why a student was flagged.
 
 **Counsellor Follow-up Tasks**
-- Automatically create a counsellor call task for high-risk students.
+- Manage counsellor follow-up tasks associated with student assessments.
 - Display open follow-up tasks.
 - Track task completion.
 
@@ -672,19 +517,13 @@ The current implementation uses a rule-based scoring system based on payment del
 - Allow the Accounts Executive to mark an assessment as a false positive.
 - Preserve the assessment record for reference.
 
-### Risk Assessment Workflow
+**Risk Assessment Workflow**
 
 ```text
 Student information
         |
         v
-Check overdue installments
-        |
-        v
-Check attendance percentage
-        |
-        v
-Evaluate recent test scores
+Evaluate configured risk conditions
         |
         v
 Calculate risk score
@@ -693,30 +532,26 @@ Calculate risk score
 Assign risk level
         |
         v
-If HIGH risk
+Store assessment reasons
         |
         v
-Create counsellor follow-up task
+Create/manage follow-up task
         |
         v
-Accounts Executive tracks task
+Accounts Executive reviews task
 ```
 
-The risk engine is rule-based and does not use a trained machine learning model. Its purpose is to assist the institute in identifying students who may need follow-up.
-
----
+The risk engine is rule-based and does not use a trained machine-learning model.
 
 ## 4.8 Parent Portal
 
-The Parent Portal provides parents with a dedicated interface to access their linked students' fee information.
-
-It is separate from the Accounts Executive portal.
-
-### Features
+The Parent Portal provides parents with a dedicated interface to access their linked students' information.
 
 **Student Information**
 - View linked student records.
 - View student names and IDs.
+- View batch information.
+- View available attendance information.
 
 **Fee Summary**
 - View total payable fees.
@@ -730,94 +565,93 @@ It is separate from the Accounts Executive portal.
 - View payment statuses.
 - View remaining balances.
 
+**Payment History**
+- View available payment records.
+- Access associated receipt information.
+
 **Notifications**
 - View generated fee reminders.
-- Check reminder type and status.
+- Check reminder types and statuses.
 - View reminder details and scheduled dates.
 
 **Mock Payments**
 - Select an installment.
-- Enter the payment amount.
+- Enter a payment amount.
 - Simulate successful or failed payments.
 - View updated fee information after successful payments.
 
-### Parent Access Restrictions
+**Parent Access Restrictions**
 
 Parents cannot:
+
 - Create or modify fee plans.
 - Create student records.
 - Manage institute centres or batches.
 - Access other parents' student information.
-- Access accounts executive management features.
+- Access Accounts Executive management features.
 
-The backend enforces parent-specific access through role-based permissions and student ownership filtering.
-
----
+The backend uses role-based permissions and parent-specific student filtering.
 
 # 5. System Architecture
 
 EduLedger follows a client-server architecture.
 
 ```text
-                 USERS
-                   |
-          -------------------
-          |                 |
-     Accounts Executive    Parent
-          |                 |
-          v                 v
-       Accounts          Parent Portal
-       Dashboard
-          |                 |
-          --------- ---------
-                   |
-             React Frontend
-                   |
-               Axios API
-                   |
-            Django REST API
-                   |
-        Authentication & Permissions
-                   |
-      -------------------------------
-      |       |       |       |      |
-   Accounts Students Fees  Payments Risk
-      |       |       |       |      |
-      -------------------------------
-                   |
-             PostgreSQL
-                   |
-       ------------------------
-       |          |           |
-    Reminders   Refunds   Dashboard
+                    USERS
+                      |
+          -------------------------
+          |                       |
+   Accounts Executive           Parent
+          |                       |
+          v                       v
+   Accounts Portal           Parent Portal
+          |                       |
+          ----------- ------------
+                      |
+                React Frontend
+                      |
+                  Axios API
+                      |
+              Django REST API
+                      |
+          Authentication & Permissions
+                      |
+          ----------------------------
+          |       |       |          |
+       Accounts Students Fees     Payments
+          |       |       |          |
+          ----------------------------
+                      |
+                 PostgreSQL
+                      |
+          -------------------------
+          |           |           |
+       Reminders    Refunds    Dashboard
+                      |
+                     Risk
 ```
 
 ### Request and Authentication Flow
 
 1. The user opens the React application.
 2. The user enters their username and password.
-3. React sends the credentials to the Django authentication endpoint.
+3. React sends credentials to the Django authentication endpoint.
 4. Django validates the credentials.
 5. JWT access and refresh tokens are returned.
-6. The frontend stores the tokens.
-7. Axios attaches the access token to authenticated requests.
-8. Django validates the token and checks the user's role.
-9. The requested operation is performed.
-10. PostgreSQL stores or retrieves the relevant information.
-11. The backend returns the response.
-12. React updates the user interface.
-
----
+6. The frontend uses the access token for authenticated requests.
+7. Django validates the token and checks the user's role.
+8. The requested operation is performed.
+9. PostgreSQL stores or retrieves the relevant information.
+10. The backend returns the response.
+11. React updates the user interface.
 
 # 6. Database Design
 
 EduLedger uses PostgreSQL as its relational database.
 
-The main database models are:
-
 | Model | Responsibility |
 |---|---|
-| User | Stores parent and accounts executive accounts |
+| User | Stores parent and Accounts Executive accounts |
 | Centre | Stores institute centre information |
 | Batch | Stores batches associated with centres |
 | Student | Stores student details and parent/batch relationships |
@@ -835,36 +669,36 @@ The main database models are:
 
 ```text
 User (Parent)
-    |
-    | One-to-Many
-    |
-  Student
-    |
-    | Many-to-One
-    |
-   Batch
-    |
-    | Many-to-One
-    |
-  Centre
+     |
+     | One-to-Many
+     |
+   Student
+     |
+     | Many-to-One
+     |
+    Batch
+     |
+     | Many-to-One
+     |
+   Centre
 
 Student
-    |
-    | One-to-One
-    |
-  FeePlan
-    |
-    | One-to-Many
-    |
- Installment
-    |
-    | One-to-Many
-    |
-  Payment
-    |
-    | One-to-One
-    |
-  Receipt
+     |
+     | One-to-One
+     |
+   FeePlan
+     |
+     | One-to-Many
+     |
+  Installment
+     |
+     | One-to-Many
+     |
+   Payment
+     |
+     | One-to-One
+     |
+   Receipt
 ```
 
 Additional relationships:
@@ -876,8 +710,6 @@ Additional relationships:
 - An installment can have multiple reminders.
 - A risk assessment can be associated with a counsellor task.
 
----
-
 # 7. Project Folder Structure
 
 ```text
@@ -887,16 +719,10 @@ EduLedger/
 │   ├── config/
 │   │
 │   ├── accounts/
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── views.py
-│   │   └── permissions.py
-│   │
 │   ├── students/
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── views.py
 │   │   └── management/
+│   │       └── commands/
+│   │           └── seed_client_demo.py
 │   │
 │   ├── fees/
 │   ├── payments/
@@ -906,8 +732,7 @@ EduLedger/
 │   ├── dashboard/
 │   │
 │   ├── manage.py
-│   ├── requirements.txt
-│   └── .env
+│   └── requirements.txt
 │
 ├── frontend/
 │   ├── public/
@@ -920,19 +745,15 @@ EduLedger/
 │   │
 │   └── package.json
 │
-├── docs/
-│
 ├── README.md
 └── deployment.md
 ```
 
----
-
 # 8. API Endpoints
 
-All API endpoints use `/api/` as their base path.
+The following are the documented API routes. Verify exact methods and paths against the current Django URL configuration before treating this list as an exhaustive API contract.
 
-## Authentication
+### Authentication
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -942,28 +763,28 @@ All API endpoints use `/api/` as their base path.
 | GET | `/api/auth/parents/` | List parent accounts |
 | POST | `/api/auth/parents/` | Create a parent account |
 
-## Account Management – Students
+### Student Management
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/students/` | Retrieve accessible students |
 | POST | `/api/students/` | Create a student |
 
-## Account Management – Centres
+### Centre Management
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/students/centres/` | Retrieve centres |
 | POST | `/api/students/centres/` | Create a centre |
 
-## Account Management – Batches
+### Batch Management
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/students/batches/` | Retrieve batches |
 | POST | `/api/students/batches/` | Create a batch |
 
-## Fee Management
+### Fee Management
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -971,27 +792,27 @@ All API endpoints use `/api/` as their base path.
 | POST | `/api/fees/plans/` | Create a fee plan |
 | GET | `/api/fees/ledger/<student_id>/` | Retrieve a student's fee ledger |
 
-## Payment Management
+### Payment Management
 
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/api/payments/mock/` | Process a simulated payment |
 
-## Reminder Management
+### Reminder Management
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/reminders/` | Retrieve accessible reminders |
 | POST | `/api/reminders/generate/` | Generate reminder records |
 
-## Refund Management
+### Refund Management
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/refunds/` | Retrieve refund records |
 | POST | `/api/refunds/calculate/` | Calculate a refund |
 
-## Risk Monitoring
+### Risk Monitoring
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -999,17 +820,12 @@ All API endpoints use `/api/` as their base path.
 | GET | `/api/risk/assessments/` | Retrieve risk assessments |
 | POST | `/api/risk/false-positive/<assessment_id>/` | Mark an assessment as a false positive |
 | GET | `/api/risk/tasks/` | Retrieve counsellor tasks |
-| PATCH | `/api/risk/tasks/<task_id>/` | Update a counsellor task, if supported by the configured view |
 
-## Dashboard
+### Dashboard
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/dashboard/` | Retrieve dashboard statistics |
-
-**Note:** API permissions are enforced by the backend. The endpoint list describes the application's configured routes; allowed operations and response fields depend on the corresponding views and serializers.
-
----
 
 # 9. Installation and Setup
 
@@ -1025,7 +841,7 @@ Install:
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/Kashishghuliani/EduLedger
+git clone https://github.com/Kashishghuliani/EduLedger.git
 cd EduLedger
 ```
 
@@ -1043,11 +859,17 @@ python -m venv venv
 
 Activate it on Windows:
 
-```bash
+```powershell
 venv\Scripts\activate
 ```
 
-Install Python dependencies:
+On macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -1068,6 +890,7 @@ DB_USER=your-postgres-username
 DB_PASSWORD=your-postgres-password
 DB_HOST=localhost
 DB_PORT=5432
+DB_SSLMODE=prefer
 ```
 
 Use the exact variable names expected by your Django settings.
@@ -1081,29 +904,66 @@ CREATE DATABASE eduledger;
 ## Step 4: Apply Migrations
 
 ```bash
+python manage.py migrate
+```
+
+If you have made changes to Django models and need to generate new migrations:
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-## Step 5: Create Demo Accounts
+## Step 5: Create Demo Data
+
+The project uses a single management command to create or update the demo Accounts Executive, parent accounts, centre, batches, students, fee plans, installments and sample payment records.
+
+Run:
 
 ```bash
-python manage.py create_demo_accounts
+python manage.py seed_client_demo
 ```
 
-The command creates or updates the Accounts Executive and Parent demo accounts.
+The command prepares the following demo accounts and student records.
 
-## Step 6: Link the Demo Parent
+| Student ID | Student | Parent Username | Batch |
+|---|---|---|---|
+| STU-0412 | Aarav Meena | `parent_aarav` | JEE 2027 Morning |
+| STU-0587 | Ishita Sharma | `parent_ishita` | JEE 2027 Evening |
+| STU-0219 | Mohit Gurjar | `parent_mohit` | NEET 2027 Morning |
 
-If the demo student already exists, run:
+The demo centre is Jaipur Main Centre.
 
-```bash
-python manage.py link_demo_parent
-```
+**Demo credentials**
 
-Ensure that the student ID in the command matches the student record you intend to use for the demo.
+| Role | Username | Password |
+|---|---|---|
+| Accounts Executive | `admin_demo` | `Admin@12345` |
+| Parent | `parent_aarav` | `Parent@123` |
+| Parent | `parent_ishita` | `Parent@123` |
+| Parent | `parent_mohit` | `Parent@123` |
 
-## Step 7: Start Django
+The command also creates sample payment and receipt records for Aarav and Ishita. Mohit's sample installment has no payment record.
+
+**Sample fee data**
+
+| Student | Installment Amount | Paid | Outstanding | Status |
+|---|---:|---:|---:|---|
+| Aarav Meena | ₹30,000 | ₹30,000 | ₹0 | Paid |
+| Ishita Sharma | ₹30,000 | ₹15,000 | ₹15,000 | Partial |
+| Mohit Gurjar | ₹40,000 | ₹0 | ₹40,000 | Pending |
+
+The sample fee plans are demonstration records, not complete annual fee schedules.
+
+**Important:**
+
+- Run the command from the backend directory with the virtual environment activated.
+- These credentials are for evaluation only.
+- The demo phone numbers are dummy contact details.
+- Avoid using these accounts for real parent communication.
+- The command is intended to prepare the sample dataset; review its update behaviour before using it against a database containing important records.
+
+## Step 6: Start Django
 
 ```bash
 python manage.py runserver
@@ -1115,9 +975,9 @@ Backend:
 http://127.0.0.1:8000/
 ```
 
-## Step 8: Frontend Setup
+## Step 7: Frontend Setup
 
-Open another terminal:
+Open another terminal and navigate to the frontend directory:
 
 ```bash
 cd frontend
@@ -1127,6 +987,14 @@ Install dependencies:
 
 ```bash
 npm install
+```
+
+Configure the frontend API URL according to the Axios configuration in the project.
+
+If the frontend uses `VITE_API_URL`, the local value may be:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000/api/
 ```
 
 Start React:
@@ -1141,7 +1009,7 @@ Frontend:
 http://localhost:5173/
 ```
 
----
+Both the backend and frontend terminals must remain running during local development. PostgreSQL must also be running.
 
 # 10. Demo Login Credentials
 
@@ -1151,37 +1019,39 @@ The following accounts are provided for project evaluation.
 |---|---|---|
 | Accounts Executive | `admin_demo` | `Admin@12345` |
 | Parent | `parent_aarav` | `Parent@123` |
+| Parent | `parent_ishita` | `Parent@123` |
+| Parent | `parent_mohit` | `Parent@123` |
 
 ### Accounts Executive Access
 
-The Accounts Executive can access:
+The Accounts Executive can explore:
+
 - Dashboard.
-- Account Management.
-- Parents.
-- Students.
-- Centres.
-- Batches.
-- Fee Management.
-- Payments.
-- Reminders.
-- Refund Management.
-- Risk Monitoring.
+- Parent management.
+- Student management.
+- Centre management.
+- Batch management.
+- Fee management.
+- Payment management.
+- Reminder management.
+- Refund management.
+- Risk monitoring.
 
 ### Parent Access
 
-The Parent can access:
+The Parent can explore:
+
 - Linked student information.
 - Fee summaries.
 - Installment details.
 - Outstanding balances.
+- Payment history and available receipts.
 - Payment reminders.
 - Simulated payments.
 
-The demo parent account must have a linked student and an associated fee plan to display meaningful information.
+The demo parent account must have a linked student and an associated fee plan to display meaningful fee information.
 
 **Security:** These are public demonstration credentials. Use only dummy data with these accounts. Do not reuse their passwords for real accounts.
-
----
 
 # 11. Security and Access Control
 
@@ -1196,37 +1066,34 @@ EduLedger includes:
 - Unique payment references.
 - Idempotency keys for duplicate payment protection.
 
-The parent portal is restricted to the authenticated parent's associated student records.
+The Parent Portal is restricted to the authenticated parent's associated student records.
 
-The Accounts Executive portal contains the institute management features and is protected by accounts-specific permissions.
-
----
+The Accounts Executive Portal contains institute management features and is protected by Accounts Executive permissions.
 
 # 12. Current Implementation Scope and Limitations
 
-Some integrations are intentionally simulated for the demonstration.
+Some integrations are intentionally simulated for demonstration.
 
-| Feature | Current implementation |
+| Feature | Current Implementation |
 |---|---|
 | Authentication | JWT-based authentication |
 | Payments | Mock payment workflow |
 | Payment receipts | Database receipt records |
-| Reminders | Database reminder generation |
+| Reminders | Database reminder generation and Parent Portal display |
 | SMS/WhatsApp | Not integrated |
 | Email delivery | Not integrated |
 | Risk assessment | Rule-based scoring |
 | Refund calculation | Pro-rata calendar-day assumption |
 | Database | PostgreSQL |
+| Test score model | Available in backend; parent-facing display should be verified separately |
 
 ### Important Assumptions
 
 1. Mock payments demonstrate payment processing without an external payment gateway.
-2. Reminder generation creates database records but does not send actual messages.
-3. The risk assessment system uses predefined rules rather than a trained AI model.
+2. Reminder generation creates database records but does not send external messages.
+3. The risk assessment system uses predefined rules rather than a trained machine-learning model.
 4. Refund calculations use an assumed pro-rata calendar-day policy.
-5. High-risk assessments generate counsellor follow-up tasks rather than automatically making calls.
-
----
+5. Counsellor tasks are managed through the application rather than automatically making calls.
 
 # 13. Future Enhancements
 
@@ -1237,14 +1104,13 @@ Potential improvements include:
 - Downloadable PDF receipts.
 - Detailed financial reports.
 - Advanced centre-wise and batch-wise analytics.
-- Configurable refund policies.
+- Configurable institute-specific refund policies.
 - Improved audit logs.
 - Notification read/unread functionality.
 - Automated scheduled reminder execution.
 - Machine-learning-based student risk prediction.
+- Parent-facing test score history and academic progress.
 - Database backups and production monitoring.
-
----
 
 # 14. Project Objective
 
@@ -1252,9 +1118,25 @@ EduLedger brings the major fee management and student monitoring workflows of a 
 
 The Accounts Executive can manage parents, students, centres, batches, fee plans, payments, reminders, refunds and risk assessments.
 
-Parents receive a dedicated portal to view their children's fee information, monitor outstanding amounts and make simulated payments.
+Parents receive a dedicated portal to view their children's fee information, monitor outstanding amounts, access available payment records and make simulated payments.
 
 The system aims to improve operational organization, fee transparency and communication between coaching institutes and parents.
+
+# 15. Project Links
+
+- **GitHub Repository:** https://github.com/Kashishghuliani/EduLedger
+- **Live Frontend:** https://edu-ledger-nine.vercel.app/
+- **Backend Service:** https://eduledger-ccpl.onrender.com/
+
+### Hosting Architecture
+
+| Component | Platform |
+|---|---|
+| Frontend | Vercel |
+| Backend | Render |
+| Database | Neon PostgreSQL |
+
+The backend uses environment variables for database credentials, secret configuration and deployment-specific settings. Never commit the `.env` file or expose production secrets in the repository.
 
 ---
 

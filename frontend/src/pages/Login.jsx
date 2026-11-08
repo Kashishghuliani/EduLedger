@@ -35,7 +35,7 @@ function Login() {
       password: "Admin@12345",
     },
     parent: {
-      username: "parent_aarav",
+      username: ["parent_aarav", "parent_ishita", "parent_mohit"],
       password: "Parent@123",
     },
   };
