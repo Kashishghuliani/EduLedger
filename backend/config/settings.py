@@ -137,7 +137,7 @@ DATABASES = {
         "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT", "5432"),
         "OPTIONS": {
-            "sslmode": os.getenv("DB_SSLMODE", "prefer"),
+            "sslmode": os.getenv("DB_SSLMODE", "require"),
         },
     }
 }
@@ -178,6 +178,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Email
