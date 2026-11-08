@@ -129,7 +129,14 @@ function Login() {
           </div>
         </div>
 
-        {renderCredential(role, "username", account.username)}
+        {renderCredential(
+          role,
+          "username",
+          Array.isArray(account.username)
+          ? account.username.join(", ")
+          : account.username
+        )}
+
         {renderCredential(role, "password", account.password)}
       </div>
     );
